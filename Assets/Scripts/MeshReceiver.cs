@@ -12,11 +12,55 @@ public class MeshReceiver : MonoBehaviour
     public MeshFilter meshFilter;
     public MeshData meshData;
 
+    public Vector3[] myVertices = new Vector3[0];
+    private int[] myTriangles = new int[0];
+    private Vector2[] myUv = new Vector2[0];
+
+    Vector3 myPosition = new Vector3();
+    Vector3 myRotation = new Vector3();
+    Vector3 myScale = new Vector3();
+
+    public Mesh actualMesh;
+    public Mesh targetMesh;
+
+    public float meshStickyness = 1.0f;
+    public bool ready = false;
+
+    private Vector3[] tempVertices;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         TCPServer.MsgReceived += GetMesh;
+        targetMesh = new Mesh();
+    }
+
+    void Update()
+    {
+       if (ready) {
+            if(actualMesh == null)
+            {
+                actualMesh = (Mesh)Instantiate(targetMesh);
+            }
+            tempVertices = actualMesh.vertices;
+            for (int i=0;i< tempVertices.Length;i++)
+            {
+                tempVertices[i] = Vector3.Lerp(actualMesh.vertices[i], targetMesh.vertices[i], Time.deltaTime * meshStickyness);
+            }
+            actualMesh.vertices = tempVertices;
+            /*for (int i = 0; i < actualMesh.normals.Length; i++)
+            {
+                actualMesh.normals[i] = Vector3.Lerp(actualMesh.normals[i], targetMesh.normals[i], Time.deltaTime * strength);
+            }*/
+
+            actualMesh.RecalculateNormals();
+            actualMesh.RecalculateBounds();
+
+            meshFilter.transform.localPosition = Vector3.Lerp(meshFilter.transform.localPosition, myPosition * meshFilter.transform.localScale.y, Time.deltaTime * meshStickyness);
+            meshFilter.transform.localRotation = Quaternion.Lerp(meshFilter.transform.localRotation, Quaternion.Euler(myRotation), Time.deltaTime * meshStickyness);
+           
+            meshFilter.mesh = actualMesh;
+        }
     }
 
     public void SetMesh()
@@ -42,49 +86,41 @@ public class MeshReceiver : MonoBehaviour
             Debug.Log("No triangles data.");
             //return;
         }
-        if (meshData.uv2 == null)
+        if (meshData.uv == null)
         {
             Debug.Log("No uv2 data.");
             //return;
         }
 
-        var myVertices = new Vector3[meshData.vertices.Length];
-        var myTriangles = new int[meshData.triangles.Length];
-        var myUv2 = new Vector2[meshData.uv2.Length];
+        myVertices = new Vector3[meshData.vertices.Length];
+        myTriangles = new int[meshData.triangles.Length];
+        myUv = new Vector2[meshData.uv.Length];
 
-        var myPosition = new Vector3();
-        var myRotation = new Vector3();
-        var myScale = new Vector3();
+        myPosition = new Vector3();
+        myRotation = new Vector3();
+        myScale = new Vector3();
 
         MeshData.ConvertFromSerialized3(ref meshData.pos, ref myPosition);
         MeshData.ConvertFromSerialized3(ref meshData.rot, ref myRotation);
         MeshData.ConvertFromSerialized3(ref meshData.scale, ref myScale);
 
-        MeshData.ConvertToSerialized3(ref meshData.rot, meshFilter.transform.rotation.eulerAngles);
-        MeshData.ConvertToSerialized3(ref meshData.scale, meshFilter.transform.localScale);
-        //var myNormals = new Vector3[meshData.normals.Length];
+        //myNormals = new Vector3[meshData.normals.Length];
 
         MeshData.ConvertFromSerialized3Array(ref myVertices, meshData.vertices);
         //MeshData.ConvertFromSerialized3Array(ref myNormals, meshData.normals);
-        MeshData.ConvertFromSerialized2Array(ref myUv2, meshData.uv2);
-        myTriangles = meshData.triangles;
-        
+        MeshData.ConvertFromSerialized2Array(ref myUv, meshData.uv);
 
-        var mesh = new Mesh();
-        mesh.vertices = myVertices;
-        mesh.triangles = myTriangles;
-        mesh.uv = myUv2;
+        myTriangles = meshData.triangles;
+
+        targetMesh.vertices = myVertices;
+        targetMesh.triangles = myTriangles;
+        targetMesh.uv = myUv;
         //mesh.normals = myNormals;
 
+        targetMesh.RecalculateNormals();
+        targetMesh.RecalculateBounds();
 
-        mesh.RecalculateNormals();
-
-        mesh.RecalculateBounds();
-       
-        meshFilter.mesh = mesh;
-        meshFilter.transform.localPosition = myPosition;
-        meshFilter.transform.localRotation = Quaternion.Euler(myRotation);
-        //meshFilter.transform.localScale = myScale;
+        ready = true;
     }
     public void GetMesh(MeshData data)
     {

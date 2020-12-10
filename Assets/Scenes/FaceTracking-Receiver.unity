@@ -199,7 +199,7 @@ Transform:
   m_GameObject: {fileID: 615216191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: -20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 1427412568}
   m_RootOrder: 0
@@ -425,7 +425,12 @@ MonoBehaviour:
       z: 0
     triangles: 
     vertices: []
-    uv2: []
+    uv: []
+  myVertices: []
+  actualMesh: {fileID: 0}
+  targetMesh: {fileID: 0}
+  strength: 10
+  ready: 0
 --- !u!4 &1427412568
 Transform:
   m_ObjectHideFlags: 0

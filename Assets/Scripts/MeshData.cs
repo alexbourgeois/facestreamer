@@ -13,7 +13,7 @@ public class MeshData
 
     [SerializeField] public int[] triangles;
     public SerializedVector3[] vertices;
-    public SerializedVector2[] uv2;
+    public SerializedVector2[] uv;
     //public SerializedVector3[] normals;
 
     public static void ConvertToSerialized3(ref SerializedVector3 output, Vector3 vector)

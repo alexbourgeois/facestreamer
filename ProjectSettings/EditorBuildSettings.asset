@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/FaceTracking-Sender.unity
     guid: ebabf444053ddf744b5c8bde4ffbc65c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FaceTracking-Receiver.unity
     guid: 5ca3234cfdb35344198b72ff03aaf10c
   m_configObjects:

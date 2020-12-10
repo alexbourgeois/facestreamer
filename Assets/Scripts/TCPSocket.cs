@@ -8,6 +8,8 @@ using System;
 
 public class TCPSocket : MonoBehaviour
 {
+    public Text ipAndPortText;
+
     public Text text;
     public string ip;
     public int port;
@@ -21,6 +23,13 @@ public class TCPSocket : MonoBehaviour
     void Start()
     {
         client = new TcpClient();
+        if (PlayerPrefs.HasKey("IP"))
+        {
+            ip = PlayerPrefs.GetString("IP");
+            port = PlayerPrefs.GetInt("PORT");
+
+            ipAndPortText.text = ip + ":" + port;
+        } 
     }
 
     public void Connect(string ipAndPort)
@@ -32,11 +41,16 @@ public class TCPSocket : MonoBehaviour
         }
         ip = strs[0];
         port = Int32.Parse(strs[1]);
+        PlayerPrefs.SetString("IP", ip);
+        PlayerPrefs.SetInt("PORT", port);
+        ipAndPortText.text = ip + ":" + port;
+
         Connect();
     }
 
     public void Connect()
     {
+        Debug.Log("Connecting to : " + ip + ":" + port);
         try
         {
             client.Connect(ip, port);
@@ -44,8 +58,10 @@ public class TCPSocket : MonoBehaviour
         }
         catch(Exception e)
         {
+            Debug.LogError("Failed : " + e.Message);
             _previousConnectionTime = Time.time;
         }
+        ipAndPortText.text = ip + ":" + port;
         _previousConnectionTime = Time.time;
     }
 

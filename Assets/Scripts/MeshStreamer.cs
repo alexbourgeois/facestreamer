@@ -39,9 +39,9 @@ public class MeshStreamer : MonoBehaviour
                 for (var i = 0; i < meshFilter.mesh.vertices.Length; i++)
                     meshData.vertices[i] = new SerializedVector3();
 
-                meshData.uv2 = new SerializedVector2[meshFilter.mesh.uv.Length];
+                meshData.uv = new SerializedVector2[meshFilter.mesh.uv.Length];
                 for (var i = 0; i < meshFilter.mesh.uv.Length; i++)
-                    meshData.uv2[i] = new SerializedVector2();
+                    meshData.uv[i] = new SerializedVector2();
 
                 meshData.triangles = new int[meshFilter.mesh.triangles.Length];
             }
@@ -49,7 +49,7 @@ public class MeshStreamer : MonoBehaviour
            // MeshData.ConvertToSerialized3Array(ref meshData.normals, meshFilter.mesh.normals);
             MeshData.ConvertToSerialized3Array(ref meshData.vertices, meshFilter.mesh.vertices);
             meshData.triangles = meshFilter.mesh.triangles;
-            MeshData.ConvertToSerialized2Array(ref meshData.uv2, meshFilter.mesh.uv);
+            MeshData.ConvertToSerialized2Array(ref meshData.uv, meshFilter.mesh.uv);
             MeshData.ConvertToSerialized3(ref meshData.pos, meshFilter.transform.position);
             MeshData.ConvertToSerialized3(ref meshData.rot, meshFilter.transform.rotation.eulerAngles);
             MeshData.ConvertToSerialized3(ref meshData.scale, meshFilter.transform.localScale);

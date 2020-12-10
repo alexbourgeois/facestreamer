@@ -36,8 +36,21 @@ public class TCPServer : MonoBehaviour
         serverThread.Start();
     }
 
+    public static string GetLocalIPAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
+    }
     private void ServerMain()
     {
+        ip = GetLocalIPAddress();
         server = new TcpListener(IPAddress.Parse(ip), port);
         server.Start();
 
@@ -146,7 +159,7 @@ public class TCPServer : MonoBehaviour
     {
         stream.Close();
         client = null;
-
+        stream = null;
         Debug.Log("Client disconnected.");
     }
     // Update is called once per frame

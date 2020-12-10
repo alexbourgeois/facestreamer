@@ -592,6 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b57b713c608f9c44a35f2592d375c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ipAndPortText: {fileID: 849305031}
   text: {fileID: 157102547}
   ip: 192.168.0.9
   port: 6020
@@ -819,7 +820,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AdresseIP:Port
+  m_Text: " \n"
 --- !u!222 &849305032
 CanvasRenderer:
   m_ObjectHideFlags: 0
