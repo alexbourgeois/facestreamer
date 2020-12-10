@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using ProtoBuf;
 
-[Serializable]
+[ProtoContract]
 public class MeshData
 {
+    [ProtoMember(1)]
     public SerializedVector3 pos;
+    [ProtoMember(2)]
     public SerializedVector3 rot;
+    [ProtoMember(3)]
     public SerializedVector3 scale;
 
-    [SerializeField] public int[] triangles;
+    [ProtoMember(4)]
+    public int[] triangles;
+    [ProtoMember(5)]
     public SerializedVector3[] vertices;
+    [ProtoMember(6)]
     public SerializedVector2[] uv;
     //public SerializedVector3[] normals;
 
@@ -75,17 +82,17 @@ public class MeshData
     }
 }
 
-[Serializable]
+[ProtoContract]
 public class SerializedVector2
 {
-    [SerializeField] public float x;
-    [SerializeField] public float y;
+    [ProtoMember(1)] public float x;
+    [ProtoMember(2)] public float y;
 }
-[Serializable]
+[ProtoContract]
 public class SerializedVector3
 {
-    [SerializeField] public float x;
-    [SerializeField] public float y;
-    [SerializeField] public float z;
+    [ProtoMember(1)] public float x;
+    [ProtoMember(2)] public float y;
+    [ProtoMember(3)] public float z;
 }
 

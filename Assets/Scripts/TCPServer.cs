@@ -9,6 +9,7 @@ using System;
 using System.Text;
 using System.IO;
 using System.Collections.Concurrent;
+using ProtoBuf;
 
 public class TCPServer : MonoBehaviour
 {
@@ -139,7 +140,8 @@ public class TCPServer : MonoBehaviour
                     try
                     {
                         //Debug.Log("Deserializing " + ms.Length);
-                        md = (MeshData)fmt.Deserialize(ms);
+                        md = Serializer.Deserialize<MeshData>(ms);
+                        //md = (MeshData)fmt.Deserialize(ms);
                     }
                     catch (Exception e)
                     {

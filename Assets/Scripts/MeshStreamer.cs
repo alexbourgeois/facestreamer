@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using System.Text;
 using UnityEngine.UI;
+using ProtoBuf;
 
 public class MeshStreamer : MonoBehaviour
 {
@@ -71,7 +72,8 @@ public class MeshStreamer : MonoBehaviour
     public void SendMesh(string name, MeshData data)
     {
         mem.Seek(0, SeekOrigin.Begin);
-        fmt.Serialize(mem, data);
+        Serializer.Serialize(mem, data);
+        //fmt.Serialize(mem, data);
         mem.Seek(0, SeekOrigin.Begin);
         socket.SendMessage(msgStart);
         //Debug.LogError("Length : " + mem.Length);
