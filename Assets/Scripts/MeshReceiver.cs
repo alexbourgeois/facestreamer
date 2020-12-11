@@ -26,13 +26,14 @@ public class MeshReceiver : MonoBehaviour
     public float meshStickyness = 1.0f;
     public bool ready = false;
 
-    private Vector3[] tempVertices;
+    private Vector3[] tempActualVertices;
+    private Vector3[] tempTargetVertices;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         TCPServer.run = true;
-       TCPServer.MsgReceived += GetMesh;
+        TCPServer.MsgReceived += GetMesh;
         targetMesh = new Mesh();
     }
 
@@ -43,12 +44,13 @@ public class MeshReceiver : MonoBehaviour
             {
                 actualMesh = (Mesh)Instantiate(targetMesh);
             }
-            tempVertices = actualMesh.vertices;
-            for (int i=0;i< tempVertices.Length;i++)
+            tempActualVertices = actualMesh.vertices;
+            tempTargetVertices = targetMesh.vertices;
+            for (int i=0;i< tempActualVertices.Length;i++)
             {
-                tempVertices[i] = Vector3.Lerp(actualMesh.vertices[i], targetMesh.vertices[i], Time.deltaTime * meshStickyness);
+                tempActualVertices[i] = Vector3.Lerp(tempActualVertices[i], tempTargetVertices[i], Time.deltaTime * meshStickyness);
             }
-            actualMesh.vertices = tempVertices;
+            actualMesh.vertices = tempActualVertices;
             /*for (int i = 0; i < actualMesh.normals.Length; i++)
             {
                 actualMesh.normals[i] = Vector3.Lerp(actualMesh.normals[i], targetMesh.normals[i], Time.deltaTime * strength);
