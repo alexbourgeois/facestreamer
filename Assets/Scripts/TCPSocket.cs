@@ -53,8 +53,11 @@ public class TCPSocket : MonoBehaviour
         Debug.Log("Connecting to : " + ip + ":" + port);
         try
         {
-            client.Connect(ip, port);
-            clientStream = client.GetStream();
+            if (client.ConnectAsync(ip, port).Wait(1000))
+            {
+                // connection failure
+                clientStream = client.GetStream();
+            }
         }
         catch(Exception e)
         {

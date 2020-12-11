@@ -146,8 +146,8 @@ public class TCPServer : MonoBehaviour
                     catch (Exception e)
                     {
                         Debug.LogError("Error deserializing : " + e.Message);
-                        Disconnect();
-                        break;
+                        //Disconnect();
+                        continue;
                     }
 
                     meshDatas.Enqueue(md);
