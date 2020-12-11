@@ -31,7 +31,8 @@ public class MeshReceiver : MonoBehaviour
     void Start()
     {
         instance = this;
-        TCPServer.MsgReceived += GetMesh;
+        TCPServer.run = true;
+       TCPServer.MsgReceived += GetMesh;
         targetMesh = new Mesh();
     }
 
@@ -126,5 +127,10 @@ public class MeshReceiver : MonoBehaviour
     {
         meshData = data;
         SetMesh();
+    }
+
+    public void OnApplicationQuit()
+    {
+        TCPServer.run = false;
     }
 }

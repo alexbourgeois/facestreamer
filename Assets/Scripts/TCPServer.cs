@@ -20,7 +20,7 @@ public class TCPServer : MonoBehaviour
     public TcpClient client;
     public NetworkStream stream;
     private Thread serverThread;
-    public bool run;
+    public static bool run;
 
     byte[] dataBuffer = new byte[0];
     public static event Action<MeshData> MsgReceived;
