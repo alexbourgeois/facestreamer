@@ -8,9 +8,9 @@ using System;
 
 public class TCPSocket : MonoBehaviour
 {
-    public Text ipAndPortText;
+    public InputField ipAndPortText;
 
-    public Text text;
+    public Text connectionStatus;
     public string ip;
     public int port;
 
@@ -22,7 +22,6 @@ public class TCPSocket : MonoBehaviour
 
     void Start()
     {
-        client = new TcpClient();
         if (PlayerPrefs.HasKey("IP"))
         {
             ip = PlayerPrefs.GetString("IP");
@@ -30,6 +29,7 @@ public class TCPSocket : MonoBehaviour
 
             ipAndPortText.text = ip + ":" + port;
         } 
+        client = new TcpClient();
     }
 
     public void Connect(string ipAndPort)
@@ -39,12 +39,19 @@ public class TCPSocket : MonoBehaviour
         {
             return;
         }
-        ip = strs[0];
-        port = Int32.Parse(strs[1]);
+        try
+        {
+            ip = strs[0];
+            port = Int32.Parse(strs[1]);
+        }
+        catch(Exception e)
+        {
+            return;
+        }
         PlayerPrefs.SetString("IP", ip);
         PlayerPrefs.SetInt("PORT", port);
-        ipAndPortText.text = ip + ":" + port;
 
+        ipAndPortText.text = ip + ":" + port;
         Connect();
     }
 
@@ -53,18 +60,22 @@ public class TCPSocket : MonoBehaviour
         Debug.Log("Connecting to : " + ip + ":" + port);
         try
         {
-            if (client.ConnectAsync(ip, port).Wait(1000))
+            if(client.Connected)
             {
-                // connection failure
+                client.Close();
+                client = new TcpClient();
+            }
+            if (client.ConnectAsync(ip, port).Wait(500))
+            {
                 clientStream = client.GetStream();
             }
         }
         catch(Exception e)
         {
-            Debug.LogError("Failed : " + e.Message);
+            //Debug.LogError("Failed : " + e.Message);
             _previousConnectionTime = Time.time;
+            client = new TcpClient();
         }
-        ipAndPortText.text = ip + ":" + port;
         _previousConnectionTime = Time.time;
     }
 
@@ -81,11 +92,11 @@ public class TCPSocket : MonoBehaviour
     {
         if (client.Connected)
         {
-            text.text = "Connected : True";
+            connectionStatus.text = "Connected : True";
         }
         else
         {
-            text.text = "Connected : False";
+            connectionStatus.text = "Connected : False";
             if (Time.time - _previousConnectionTime >= connectionDelay)
                 Connect();
         }

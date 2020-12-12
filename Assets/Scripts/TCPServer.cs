@@ -54,7 +54,7 @@ public class TCPServer : MonoBehaviour
         ip = GetLocalIPAddress();
         server = new TcpListener(IPAddress.Parse(ip), port);
         server.Start();
-
+        Debug.Log("[TCPServer] Started on " + ip + ":" + port);
         byte[] msgStart = new byte[] { 0x01, 0x02, 0x03, 0x04 };
         byte[] msgEnd = new byte[] { 0x04, 0x03, 0x02, 0x01 };
 
@@ -68,7 +68,7 @@ public class TCPServer : MonoBehaviour
             {
                 client = server.AcceptTcpClient();
                 stream = client.GetStream();
-                Debug.Log("Client connected!");
+                Debug.Log("[TCPServer] Client connected!");
             }
             else
             {
@@ -162,7 +162,7 @@ public class TCPServer : MonoBehaviour
         stream.Close();
         client = null;
         stream = null;
-        Debug.Log("Client disconnected.");
+        Debug.Log("[TCPServer] Client disconnected.");
     }
     // Update is called once per frame
     void Update()
