@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class FPSDisplay : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class FPSDisplay : MonoBehaviour
     public int offset = 10;
     public int fontSize = 15;
     public float fps;
+    public Text debugText;
 
     private GUIStyle _style;
 
@@ -25,6 +27,10 @@ public class FPSDisplay : MonoBehaviour
         //    QualitySettings.vSyncCount = 0;
         //  Application.targetFrameRate = 60;
         fps = (1.0f / Time.smoothDeltaTime);
+
+        if (debugText)
+            debugText.text = fps.ToString("F2");
+
         if (Input.GetKeyDown("f"))
             ToggleFPSDisplay();
     }

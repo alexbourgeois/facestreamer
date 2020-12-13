@@ -5,10 +5,12 @@ using System.Net.Sockets;
 using System.Net;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class TCPSocket : MonoBehaviour
 {
-    public InputField ipAndPortText;
+    public InputField ipText;
+    public InputField portText;
 
     public Text connectionStatus;
     public string ip;
@@ -27,31 +29,54 @@ public class TCPSocket : MonoBehaviour
             ip = PlayerPrefs.GetString("IP");
             port = PlayerPrefs.GetInt("PORT");
 
-            ipAndPortText.text = ip + ":" + port;
+            ipText.text = ip;
+            portText.text = port.ToString();
         } 
         client = new TcpClient();
     }
 
-    public void Connect(string ipAndPort)
+    public void NewIP(string _ip)
     {
-        var strs = ipAndPort.Split(':');
-        if(strs.Length != 2)
-        {
+        if (!ValidateIPv4(_ip))
             return;
+
+        ip = _ip;
+        PlayerPrefs.SetString("IP", ip);
+
+        Connect();
+    }
+
+    public bool ValidateIPv4(string ipString)
+    {
+        if (String.IsNullOrWhiteSpace(ipString))
+        {
+            return false;
         }
+
+        string[] splitValues = ipString.Split('.');
+        if (splitValues.Length != 4)
+        {
+            return false;
+        }
+
+        byte tempForParsing;
+
+        return splitValues.All(r => byte.TryParse(r, out tempForParsing));
+    }
+
+    public void NewPort(string _port)
+    {
         try
         {
-            ip = strs[0];
-            port = Int32.Parse(strs[1]);
+            port = Int32.Parse(_port);
         }
         catch(Exception e)
         {
             return;
         }
-        PlayerPrefs.SetString("IP", ip);
+
         PlayerPrefs.SetInt("PORT", port);
 
-        ipAndPortText.text = ip + ":" + port;
         Connect();
     }
 
@@ -92,11 +117,11 @@ public class TCPSocket : MonoBehaviour
     {
         if (client.Connected)
         {
-            connectionStatus.text = "Connected : True";
+            connectionStatus.text = "True";
         }
         else
         {
-            connectionStatus.text = "Connected : False";
+            connectionStatus.text = "False";
             if (Time.time - _previousConnectionTime >= connectionDelay)
                 Connect();
         }
