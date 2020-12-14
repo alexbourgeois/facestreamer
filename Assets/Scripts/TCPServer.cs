@@ -54,6 +54,7 @@ public class TCPServer : MonoBehaviour
         ip = GetLocalIPAddress();
         server = new TcpListener(IPAddress.Parse(ip), port);
         server.Start();
+
         Debug.Log("[TCPServer] Started on " + ip + ":" + port);
         byte[] msgStart = new byte[] { 0x01, 0x02, 0x03, 0x04 };
         byte[] msgEnd = new byte[] { 0x04, 0x03, 0x02, 0x01 };
@@ -83,7 +84,7 @@ public class TCPServer : MonoBehaviour
 
                 rcvdStart = false;
 
-                while (!rcvdStart && (dataRead = stream.Read(shortMessageBuffer, 0, 4)) != 0)
+                while (run && !rcvdStart && (dataRead = stream.Read(shortMessageBuffer, 0, 4)) != 0)
                 {
                     rcvdStart = true;
                     for (int i=0; i< 4;i++)
@@ -97,7 +98,7 @@ public class TCPServer : MonoBehaviour
                 
                 int serializedDataSize = 0;
 
-                while ((dataRead = stream.Read(shortMessageBuffer, 0, 4)) != 0)
+                while (run && (dataRead = stream.Read(shortMessageBuffer, 0, 4)) != 0)
                 {
                     if (dataRead == 4)
                     {
@@ -117,7 +118,7 @@ public class TCPServer : MonoBehaviour
                // Debug.Log("Received all data");
                 dataRead = 0;
                 var rcvdEnd = false;
-                while (!rcvdEnd && (dataRead = stream.Read(shortMessageBuffer, 0, 4)) != 0)
+                while (run && !rcvdEnd && (dataRead = stream.Read(shortMessageBuffer, 0, 4)) != 0)
                 {
                     rcvdEnd = true;
                     for (int i = 0; i < 4; i++)
@@ -128,7 +129,7 @@ public class TCPServer : MonoBehaviour
                 }
                 //Debug.Log("Received end message.");
 
-                if (dataBuffer.Length != 256)
+                if (run && dataBuffer.Length != 256)
                 {
                     var ms = new MemoryStream(dataBuffer);
                     ms.Position = 0;
@@ -155,13 +156,22 @@ public class TCPServer : MonoBehaviour
              
             }
         }
+
+        Disconnect();
+        server.Stop();
+        
     }
 
     void Disconnect()
     {
-        stream.Close();
-        client = null;
-        stream = null;
+        if (stream != null)
+        {
+            stream.Close();
+        }
+        if (client != null)
+        {
+            client.Close();
+        }
         Debug.Log("[TCPServer] Client disconnected.");
     }
     // Update is called once per frame
@@ -172,5 +182,10 @@ public class TCPServer : MonoBehaviour
             MsgReceived?.Invoke(tmpMeshData);
         }
 
+    }
+
+    public void OnApplicationQuit()
+    {
+        TCPServer.run = false;
     }
 }

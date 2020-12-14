@@ -15,7 +15,6 @@ public class MeshStreamer : MonoBehaviour
 
     public TCPSocket socket;
     private MemoryStream mem = new MemoryStream();
-    private BinaryFormatter fmt = new BinaryFormatter();
     private MeshData meshData;
 
     byte[] msgStart = new byte[] { 0x01, 0x02, 0x03, 0x04 };
@@ -36,21 +35,21 @@ public class MeshStreamer : MonoBehaviour
                 for (var i = 0; i < meshFilter.mesh.normals.Length; i++)
                     meshData.normals[i] = new SerializedVector3();*/
 
-                meshData.vertices = new SerializedVector3[meshFilter.mesh.vertices.Length];
-                for (var i = 0; i < meshFilter.mesh.vertices.Length; i++)
+                meshData.vertices = new SerializedVector3[meshFilter.sharedMesh.vertices.Length];
+                for (var i = 0; i < meshFilter.sharedMesh.vertices.Length; i++)
                     meshData.vertices[i] = new SerializedVector3();
 
-                meshData.uv = new SerializedVector2[meshFilter.mesh.uv.Length];
-                for (var i = 0; i < meshFilter.mesh.uv.Length; i++)
+                meshData.uv = new SerializedVector2[meshFilter.sharedMesh.uv.Length];
+                for (var i = 0; i < meshFilter.sharedMesh.uv.Length; i++)
                     meshData.uv[i] = new SerializedVector2();
 
-                meshData.triangles = new int[meshFilter.mesh.triangles.Length];
+                meshData.triangles = new int[meshFilter.sharedMesh.triangles.Length];
             }
 
            // MeshData.ConvertToSerialized3Array(ref meshData.normals, meshFilter.mesh.normals);
-            MeshData.ConvertToSerialized3Array(ref meshData.vertices, meshFilter.mesh.vertices);
-            meshData.triangles = meshFilter.mesh.triangles;
-            MeshData.ConvertToSerialized2Array(ref meshData.uv, meshFilter.mesh.uv);
+            MeshData.ConvertToSerialized3Array(ref meshData.vertices, meshFilter.sharedMesh.vertices);
+            meshData.triangles = meshFilter.sharedMesh.triangles;
+            MeshData.ConvertToSerialized2Array(ref meshData.uv, meshFilter.sharedMesh.uv);
             MeshData.ConvertToSerialized3(ref meshData.pos, meshFilter.transform.position);
             MeshData.ConvertToSerialized3(ref meshData.rot, meshFilter.transform.rotation.eulerAngles);
             MeshData.ConvertToSerialized3(ref meshData.scale, meshFilter.transform.localScale);
@@ -73,7 +72,6 @@ public class MeshStreamer : MonoBehaviour
     {
         mem.Seek(0, SeekOrigin.Begin);
         Serializer.Serialize(mem, data);
-        //fmt.Serialize(mem, data);
         mem.Seek(0, SeekOrigin.Begin);
         socket.SendMessage(msgStart);
         //Debug.LogError("Length : " + mem.Length);
@@ -81,7 +79,7 @@ public class MeshStreamer : MonoBehaviour
 
         var tmp = new byte[] { memSize[0], memSize[1], memSize[2], memSize[3] };
         socket.SendMessage(tmp);
-        socket.SendMessage(mem.ToArray());
+        socket.SendMessage(mem.GetBuffer());
         socket.SendMessage(msgEnd);
         //Debug.Log("Done!");
     }

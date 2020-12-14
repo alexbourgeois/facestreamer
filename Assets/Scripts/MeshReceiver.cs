@@ -62,7 +62,7 @@ public class MeshReceiver : MonoBehaviour
             meshFilter.transform.localPosition = Vector3.Lerp(meshFilter.transform.localPosition, myPosition * meshFilter.transform.localScale.y, Time.deltaTime * meshStickyness);
             meshFilter.transform.localRotation = Quaternion.Lerp(meshFilter.transform.localRotation, Quaternion.Euler(myRotation), Time.deltaTime * meshStickyness);
            
-            meshFilter.mesh = actualMesh;
+            meshFilter.sharedMesh = actualMesh;
         }
     }
 
@@ -129,10 +129,5 @@ public class MeshReceiver : MonoBehaviour
     {
         meshData = data;
         SetMesh();
-    }
-
-    public void OnApplicationQuit()
-    {
-        TCPServer.run = false;
     }
 }
