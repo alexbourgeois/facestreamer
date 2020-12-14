@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4080066963727725631}
   - component: {fileID: 4080066963727725630}
   m_Layer: 0
-  m_Name: FaceInformation
+  m_Name: FaceStreamer-FaceInformation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

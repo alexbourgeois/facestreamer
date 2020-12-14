@@ -25,13 +25,13 @@ public class TCPServer : MonoBehaviour
     byte[] dataBuffer = new byte[0];
     public static event Action<MeshData> MsgReceived;
 
-    private BinaryFormatter fmt = new BinaryFormatter();
     public ConcurrentQueue<MeshData> meshDatas = new ConcurrentQueue<MeshData>();
 
     MeshData tmpMeshData;
 
     void Start()
     {
+        TCPServer.run = true;
         serverThread = new Thread(new ThreadStart(ServerMain));
         serverThread.IsBackground = true;
         serverThread.Start();
@@ -158,8 +158,7 @@ public class TCPServer : MonoBehaviour
         }
 
         Disconnect();
-        server.Stop();
-        
+        server.Stop();   
     }
 
     void Disconnect()

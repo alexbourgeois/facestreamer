@@ -70,7 +70,7 @@ public class TCPSocket : MonoBehaviour
         {
             port = Int32.Parse(_port);
         }
-        catch(Exception e)
+        catch (Exception)
         {
             return;
         }
@@ -82,7 +82,7 @@ public class TCPSocket : MonoBehaviour
 
     public void Connect()
     {
-        Debug.Log("Connecting to : " + ip + ":" + port);
+        Debug.Log("[TCPSocket] Connecting to : " + ip + ":" + port);
         try
         {
             if(client.Connected)
@@ -97,7 +97,7 @@ public class TCPSocket : MonoBehaviour
         }
         catch(Exception e)
         {
-            //Debug.LogError("Failed : " + e.Message);
+            Debug.LogWarning("Failed : " + e.Message);
             _previousConnectionTime = Time.time;
             client = new TcpClient();
         }

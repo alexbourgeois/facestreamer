@@ -9,21 +9,23 @@ using UnityEngine.UI;
 public class MeshReceiver : MonoBehaviour
 {
     public static MeshReceiver instance;
-    public MeshFilter meshFilter;
-    public MeshData meshData;
 
-    public Vector3[] myVertices = new Vector3[0];
+    public MeshFilter meshFilter;
+    private MeshData meshData;
+
+    private Vector3[] myVertices = new Vector3[0];
     private int[] myTriangles = new int[0];
     private Vector2[] myUv = new Vector2[0];
 
-    Vector3 myPosition = new Vector3();
-    Vector3 myRotation = new Vector3();
-    Vector3 myScale = new Vector3();
+    private Vector3 myPosition = new Vector3();
+    private Vector3 myRotation = new Vector3();
+    private Vector3 myScale = new Vector3();
 
-    public Mesh actualMesh;
-    public Mesh targetMesh;
+    private Mesh actualMesh;
+    private Mesh targetMesh;
 
-    public float meshStickyness = 1.0f;
+    public float mostRecentMeshStickyness = 35.0f;
+    [HideInInspector]
     public bool ready = false;
 
     private Vector3[] tempActualVertices;
@@ -32,8 +34,7 @@ public class MeshReceiver : MonoBehaviour
     void Start()
     {
         instance = this;
-        TCPServer.run = true;
-        TCPServer.MsgReceived += GetMesh;
+        TCPServer.MsgReceived += SetMesh;
         targetMesh = new Mesh();
     }
 
@@ -48,7 +49,7 @@ public class MeshReceiver : MonoBehaviour
             tempTargetVertices = targetMesh.vertices;
             for (int i=0;i< tempActualVertices.Length;i++)
             {
-                tempActualVertices[i] = Vector3.Lerp(tempActualVertices[i], tempTargetVertices[i], Time.deltaTime * meshStickyness);
+                tempActualVertices[i] = Vector3.Lerp(tempActualVertices[i], tempTargetVertices[i], Time.deltaTime * mostRecentMeshStickyness);
             }
             actualMesh.vertices = tempActualVertices;
             /*for (int i = 0; i < actualMesh.normals.Length; i++)
@@ -59,15 +60,17 @@ public class MeshReceiver : MonoBehaviour
             actualMesh.RecalculateNormals();
             actualMesh.RecalculateBounds();
 
-            meshFilter.transform.localPosition = Vector3.Lerp(meshFilter.transform.localPosition, myPosition * meshFilter.transform.localScale.y, Time.deltaTime * meshStickyness);
-            meshFilter.transform.localRotation = Quaternion.Lerp(meshFilter.transform.localRotation, Quaternion.Euler(myRotation), Time.deltaTime * meshStickyness);
+            meshFilter.transform.localPosition = Vector3.Lerp(meshFilter.transform.localPosition, myPosition * meshFilter.transform.localScale.y, Time.deltaTime * mostRecentMeshStickyness);
+            meshFilter.transform.localRotation = Quaternion.Lerp(meshFilter.transform.localRotation, Quaternion.Euler(myRotation), Time.deltaTime * mostRecentMeshStickyness);
            
             meshFilter.sharedMesh = actualMesh;
         }
     }
 
-    public void SetMesh()
+    public void SetMesh(MeshData data)
     {
+        meshData = data;
+
         if (meshData == null)
         {
             Debug.Log("No mesh data.");
@@ -77,22 +80,7 @@ public class MeshReceiver : MonoBehaviour
         if(meshData.vertices == null)
         {
             Debug.Log("No vertex data.");
-            //return;
-        }
-        /*if (meshData.normals == null)
-        {
-            Debug.Log("No normals data.");
-            //return;
-        }*/
-        if (meshData.triangles == null)
-        {
-            Debug.Log("No triangles data.");
-            //return;
-        }
-        if (meshData.uv == null)
-        {
-            Debug.Log("No uv2 data.");
-            //return;
+            return;
         }
 
         myVertices = new Vector3[meshData.vertices.Length];
@@ -124,10 +112,5 @@ public class MeshReceiver : MonoBehaviour
         targetMesh.RecalculateBounds();
 
         ready = true;
-    }
-    public void GetMesh(MeshData data)
-    {
-        meshData = data;
-        SetMesh();
     }
 }
