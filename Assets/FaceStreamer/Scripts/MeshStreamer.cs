@@ -20,10 +20,12 @@ public class MeshStreamer : MonoBehaviour
     byte[] msgStart = new byte[] { 0x01, 0x02, 0x03, 0x04 };
     byte[] msgEnd = new byte[] { 0x04, 0x03, 0x02, 0x01 };
 
+    [HideInInspector]
+    public bool ready = false;
+
     private void Update()
     {
-
-        if (meshFilter != null && socket.client.Connected)
+        if (meshFilter != null && socket.client.Connected && UIManager.instance.tcpEnabled)
         {
             if (meshData == null)
             {
@@ -44,6 +46,7 @@ public class MeshStreamer : MonoBehaviour
                     meshData.uv[i] = new SerializedVector2();
 
                 meshData.triangles = new int[meshFilter.sharedMesh.triangles.Length];
+                ready = true;
             }
 
            // MeshData.ConvertToSerialized3Array(ref meshData.normals, meshFilter.mesh.normals);

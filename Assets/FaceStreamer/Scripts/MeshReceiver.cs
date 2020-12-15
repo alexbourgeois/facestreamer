@@ -44,6 +44,10 @@ public class MeshReceiver : MonoBehaviour
             if(actualMesh == null)
             {
                 actualMesh = (Mesh)Instantiate(targetMesh);
+                if(FaceInformationExtractor.instance != null)
+                {
+                    FaceInformationExtractor.instance.faceMeshFilter = meshFilter;
+                }
             }
             tempActualVertices = actualMesh.vertices;
             tempTargetVertices = targetMesh.vertices;

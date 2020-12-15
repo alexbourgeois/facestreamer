@@ -24,14 +24,16 @@ public class TCPSocket : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("IP"))
+        if (PlayerPrefs.HasKey("OSC-IP"))
         {
-            ip = PlayerPrefs.GetString("IP");
-            port = PlayerPrefs.GetInt("PORT");
-
+            ip = PlayerPrefs.GetString("OSC-IP");
             ipText.text = ip;
+        }
+        if (PlayerPrefs.HasKey("OSC-PORT"))
+        {
+            port = PlayerPrefs.GetInt("OSC-PORT");
             portText.text = port.ToString();
-        } 
+        }
         client = new TcpClient();
     }
 
@@ -41,7 +43,7 @@ public class TCPSocket : MonoBehaviour
             return;
 
         ip = _ip;
-        PlayerPrefs.SetString("IP", ip);
+        PlayerPrefs.SetString("TCP-IP", ip);
 
         Connect();
     }
@@ -75,13 +77,16 @@ public class TCPSocket : MonoBehaviour
             return;
         }
 
-        PlayerPrefs.SetInt("PORT", port);
+        PlayerPrefs.SetInt("TCP-PORT", port);
 
         Connect();
     }
 
     public void Connect()
     {
+        if (!UIManager.instance.tcpEnabled)
+            return;
+
         Debug.Log("[TCPSocket] Connecting to : " + ip + ":" + port);
         try
         {
@@ -117,11 +122,11 @@ public class TCPSocket : MonoBehaviour
     {
         if (client.Connected)
         {
-            connectionStatus.text = "True";
+            connectionStatus.text = "Yes";
         }
         else
         {
-            connectionStatus.text = "False";
+            connectionStatus.text = "No";
             if (Time.time - _previousConnectionTime >= connectionDelay)
                 Connect();
         }
