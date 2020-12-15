@@ -3,8 +3,8 @@
     "m_SelectedPackage": {
         "deviceId": "f6b409f",
         "name": "com.AlexBourgeois.FaceStreamer",
-        "processId": 2935,
-        "exited": false
+        "processId": 17721,
+        "exited": true
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
@@ -61,6 +61,36 @@
             "name": "com.AlexBourgeois.FaceStreamer",
             "processId": 2935,
             "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 23967,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 25836,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 32604,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 6933,
+            "exited": true
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 17721,
+            "exited": true
         }
     ],
     "m_Tags": {

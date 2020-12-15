@@ -25,19 +25,20 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        oscToggle.SetIsOnWithoutNotify(!oscToggle.isOn);
         if (PlayerPrefs.HasKey("OSC-Enable"))
         {
-            oscEnabled = PlayerPrefs.GetInt("OSC-Enable") == 1 ? true : false;
+            oscEnabled = PlayerPrefs.GetInt("OSC-Enable") == 1;
             Debug.LogError("UIMANAGER OSC : " + oscEnabled);
         }
-        oscToggle.isOn = !oscToggle.isOn;
         oscToggle.isOn = oscEnabled;
 
+        tcpToggle.SetIsOnWithoutNotify(!tcpToggle.isOn);
         if (PlayerPrefs.HasKey("TCP-Enable"))
         {
-            tcpEnabled = PlayerPrefs.GetInt("TCP-Enable") == 1 ? true : false;
+            tcpEnabled = PlayerPrefs.GetInt("TCP-Enable") == 1;
         }
-        tcpToggle.isOn = !tcpToggle.isOn;
         tcpToggle.isOn = tcpEnabled;
 
         versionText.text = Application.version;
@@ -47,6 +48,7 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("OSC-Enable", state ? 1 : 0);
         oscEnabled = state;
+        Debug.LogError("SET UIMANAGER OSC : " + oscEnabled);
     }
 
     public void TCPToggle(bool state)
