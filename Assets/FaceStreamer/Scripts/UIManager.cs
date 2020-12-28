@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
         if (PlayerPrefs.HasKey("OSC-Enable"))
         {
             oscEnabled = PlayerPrefs.GetInt("OSC-Enable") == 1;
-            Debug.LogError("UIMANAGER OSC : " + oscEnabled);
         }
         oscToggle.isOn = oscEnabled;
 
@@ -48,7 +47,6 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("OSC-Enable", state ? 1 : 0);
         oscEnabled = state;
-        Debug.LogError("SET UIMANAGER OSC : " + oscEnabled);
     }
 
     public void TCPToggle(bool state)

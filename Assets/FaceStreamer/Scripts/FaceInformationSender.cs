@@ -78,6 +78,12 @@ public class FaceInformationSender : MonoBehaviour
         if (!UIManager.instance.oscEnabled || targetIp == "127.0.0.1")
             return;
 
+        if (!OSCMaster.HasClient("FaceSender"))
+        {
+            Connect();
+            return;
+        }
+
         var msg = new OSCMessage("/facePosition");
         msg.Append(faceExtractor.facePosition.x);
         msg.Append(faceExtractor.facePosition.y);

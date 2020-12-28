@@ -81,9 +81,11 @@ public class MeshStreamer : MonoBehaviour
         var memSize = BitConverter.GetBytes((Int32)mem.Length);
 
         var tmp = new byte[] { memSize[0], memSize[1], memSize[2], memSize[3] };
+
         socket.SendMessage(tmp);
         socket.SendMessage(mem.GetBuffer());
         socket.SendMessage(msgEnd);
+        
         //Debug.Log("Done!");
     }
 

@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "f6b409f",
         "name": "com.AlexBourgeois.FaceStreamer",
-        "processId": 17721,
+        "processId": 12304,
         "exited": true
     },
     "m_SelectedPriority": 0,
@@ -11,85 +11,73 @@
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 24093,
+            "processId": 18942,
             "exited": true
         },
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 24549,
+            "processId": 7995,
             "exited": true
         },
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 25721,
+            "processId": 8993,
             "exited": true
         },
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 26387,
+            "processId": 9799,
             "exited": true
         },
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 28524,
+            "processId": 10535,
+            "exited": true
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.mi.android.globallauncher",
+            "processId": 2609,
             "exited": false
         },
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 30170,
+            "processId": 12304,
             "exited": true
         },
         {
-            "deviceId": "f6b409f",
+            "deviceId": "ZY322QCSPQ",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 31841,
-            "exited": false
-        },
-        {
-            "deviceId": "f6b409f",
-            "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 32269,
+            "processId": 31778,
             "exited": true
         },
         {
-            "deviceId": "f6b409f",
-            "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 2935,
+            "deviceId": "ZY322QCSPQ",
+            "name": "com.motorola.launcher3",
+            "processId": 29941,
             "exited": false
         },
         {
-            "deviceId": "f6b409f",
-            "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 23967,
+            "deviceId": "ZY322QCSPQ",
+            "name": "com.android.settings",
+            "processId": 17024,
             "exited": false
         },
         {
-            "deviceId": "f6b409f",
+            "deviceId": "ZY322QCSPQ",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 25836,
+            "processId": 26224,
             "exited": false
         },
         {
-            "deviceId": "f6b409f",
+            "deviceId": "R58N20MZPDH",
             "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 32604,
-            "exited": false
-        },
-        {
-            "deviceId": "f6b409f",
-            "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 6933,
-            "exited": true
-        },
-        {
-            "deviceId": "f6b409f",
-            "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 17721,
+            "processId": 3923,
             "exited": true
         }
     ],

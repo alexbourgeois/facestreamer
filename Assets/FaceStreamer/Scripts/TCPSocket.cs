@@ -24,14 +24,14 @@ public class TCPSocket : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("OSC-IP"))
+        if (PlayerPrefs.HasKey("TCP-IP"))
         {
-            ip = PlayerPrefs.GetString("OSC-IP");
+            ip = PlayerPrefs.GetString("TCP-IP");
             ipText.text = ip;
         }
-        if (PlayerPrefs.HasKey("OSC-PORT"))
+        if (PlayerPrefs.HasKey("TCP-PORT"))
         {
-            port = PlayerPrefs.GetInt("OSC-PORT");
+            port = PlayerPrefs.GetInt("TCP-PORT");
             portText.text = port.ToString();
         }
         client = new TcpClient();
@@ -92,6 +92,8 @@ public class TCPSocket : MonoBehaviour
         {
             if(client.Connected)
             {
+                if (clientStream != null)
+                    clientStream.Close();
                 client.Close();
                 client = new TcpClient();
             }
@@ -104,6 +106,8 @@ public class TCPSocket : MonoBehaviour
         {
             Debug.LogWarning("Failed : " + e.Message);
             _previousConnectionTime = Time.time;
+            if(clientStream != null)
+                clientStream.Close();
             client = new TcpClient();
         }
         _previousConnectionTime = Time.time;
@@ -115,7 +119,13 @@ public class TCPSocket : MonoBehaviour
         {
             return;
         }
-        clientStream.Write(bytes, 0, bytes.Length);
+        try { 
+            clientStream.Write(bytes, 0, bytes.Length);
+        }
+        catch (Exception)
+        {
+            _previousConnectionTime = Time.time;
+        }
     }
 
     void Update()

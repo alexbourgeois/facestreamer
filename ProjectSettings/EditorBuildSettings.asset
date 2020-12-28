@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/FaceStreamer/Scenes/FaceTracking-Sender.unity
     guid: ebabf444053ddf744b5c8bde4ffbc65c
   - enabled: 0
-    path: Assets/FaceStreamer/Scenes/FaceTracking-Receiver.unity
+    path: Assets/FaceStreamer/Receiver/FaceTracking-Receiver.unity
     guid: 5ca3234cfdb35344198b72ff03aaf10c
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 075bbb793ac35114ea25621e90b8e863, type: 2}
