@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8665496944356810758}
   - component: {fileID: 8665496944356810757}
   - component: {fileID: 8665496944356810759}
+  - component: {fileID: 1170424042}
   m_Layer: 0
   m_Name: Face
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1170424042
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665496944356810874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5849583761504094975, guid: 8955a3d514ec4e5438428bb0cc241137, type: 3}
 --- !u!1 &8665496945170645523
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +108,7 @@ GameObject:
   - component: {fileID: 8665496945170645532}
   - component: {fileID: 8665496945170645522}
   m_Layer: 0
-  m_Name: FaceStreamer-Receiver
+  m_Name: FaceStreamer-MeshReceiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,5 +156,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 8665496944356810757}
-  mostRecentMeshStickyness: 35
+  mostRecentMeshStickyness: 25
   ready: 0

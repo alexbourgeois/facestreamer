@@ -3,17 +3,11 @@
     "m_SelectedPackage": {
         "deviceId": "f6b409f",
         "name": "com.AlexBourgeois.FaceStreamer",
-        "processId": 12304,
+        "processId": 13011,
         "exited": true
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "f6b409f",
-            "name": "com.AlexBourgeois.FaceStreamer",
-            "processId": 18942,
-            "exited": true
-        },
         {
             "deviceId": "f6b409f",
             "name": "com.AlexBourgeois.FaceStreamer",
@@ -49,6 +43,42 @@
             "name": "com.AlexBourgeois.FaceStreamer",
             "processId": 12304,
             "exited": true
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.google.android.googlequicksearchbox:search",
+            "processId": 25628,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 21137,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 29637,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 30566,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 5278,
+            "exited": false
+        },
+        {
+            "deviceId": "f6b409f",
+            "name": "com.AlexBourgeois.FaceStreamer",
+            "processId": 13011,
+            "exited": false
         },
         {
             "deviceId": "ZY322QCSPQ",

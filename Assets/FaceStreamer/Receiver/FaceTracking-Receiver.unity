@@ -796,13 +796,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8665496945170645522, guid: 12b86478222a591488baea4732b65dd2, type: 3}
-      propertyPath: mostRecentMeshStickyness
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 8665496945170645523, guid: 12b86478222a591488baea4732b65dd2, type: 3}
       propertyPath: m_Name
-      value: FaceStreamer-Receiver
+      value: FaceStreamer-MeshReceiver
       objectReference: {fileID: 0}
     - target: {fileID: 8665496945170645533, guid: 12b86478222a591488baea4732b65dd2, type: 3}
       propertyPath: m_RootOrder
@@ -810,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8665496945170645533, guid: 12b86478222a591488baea4732b65dd2, type: 3}
       propertyPath: m_LocalScale.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8665496945170645533, guid: 12b86478222a591488baea4732b65dd2, type: 3}
       propertyPath: m_LocalPosition.x

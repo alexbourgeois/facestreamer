@@ -77,13 +77,13 @@ public class MeshReceiver : MonoBehaviour
 
         if (meshData == null)
         {
-            Debug.Log("No mesh data.");
+            Debug.Log("[MeshReceiver] No mesh data.");
             return;
         }
 
         if(meshData.vertices == null)
         {
-            Debug.Log("No vertex data.");
+            Debug.Log("[MeshReceiver] No vertex data.");
             return;
         }
 
@@ -106,6 +106,8 @@ public class MeshReceiver : MonoBehaviour
         MeshData.ConvertFromSerialized2Array(ref myUv, meshData.uv);
 
         myTriangles = meshData.triangles;
+        myPosition.x *= 1.0f; //mirror
+
 
         targetMesh.vertices = myVertices;
         targetMesh.triangles = myTriangles;

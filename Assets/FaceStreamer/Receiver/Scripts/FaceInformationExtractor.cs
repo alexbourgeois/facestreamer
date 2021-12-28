@@ -20,12 +20,23 @@ public class FaceInformationExtractor : MonoBehaviour
     private int _mouthIndex1 = 62;
     private int _mouthIndex2 = 292;
 
+    private int _leftEyebrow1 = 105;
+    private int _leftEyebrow2 = 65;
+
+    private int _rightEyebrow1 = 295;
+    private int _rightEyebrow2 = 334;
+
+
+    [HideInInspector]
     public MeshFilter faceMeshFilter;
 
     public Transform noiseTip;
     public Transform leftEye;
     public Transform rightEye;
     public Transform mouth;
+    public Transform leftEyebrow;
+    public Transform rightEyebrow;
+
     public Vector3 faceDirection;
     public Vector3 facePosition;
     public float mouthHeight;
@@ -44,11 +55,18 @@ public class FaceInformationExtractor : MonoBehaviour
             var vertices = faceMeshFilter.sharedMesh.vertices;
             noiseTip.position = faceMeshFilter.transform.TransformPoint(vertices[_noseTipindex]);
             noiseTip.rotation = faceMeshFilter.transform.localRotation;
-
+                
             leftEye.position = faceMeshFilter.transform.TransformPoint((vertices[_leftEyeIndex1] + vertices[_leftEyeIndex2]) / 2.0f);
+            leftEye.rotation = faceMeshFilter.transform.localRotation;
+
+            leftEyebrow.position = faceMeshFilter.transform.TransformPoint((vertices[_leftEyebrow1] + vertices[_leftEyebrow2]) / 2.0f);
+            leftEyebrow.rotation = faceMeshFilter.transform.localRotation;
+
             rightEye.position = faceMeshFilter.transform.TransformPoint((vertices[_rightEyeIndex1] + vertices[_rightEyeIndex2]) / 2.0f);
             rightEye.rotation = faceMeshFilter.transform.localRotation;
-            leftEye.rotation = faceMeshFilter.transform.localRotation;
+
+            rightEyebrow.position = faceMeshFilter.transform.TransformPoint((vertices[_rightEyebrow1] + vertices[_rightEyebrow2]) / 2.0f);
+            rightEyebrow.rotation = faceMeshFilter.transform.localRotation;
 
             mouth.position = faceMeshFilter.transform.TransformPoint((vertices[_topLipsIndex1] + vertices[_botLipsIndex2]) / 2.0f);
             mouth.rotation = faceMeshFilter.transform.localRotation;

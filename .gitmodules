@@ -1,0 +1,3 @@
+[submodule "Assets/FaceStreamer/Plugins/UnityOSC"]
+	path = Assets/FaceStreamer/Plugins/UnityOSC
+	url = https://github.com/Theoriz/UnityOSC/
