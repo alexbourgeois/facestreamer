@@ -9,3 +9,7 @@ TCP is used to stream in real time the face mesh itself to a remote Unity sessio
 An Android app is available here : https://play.google.com/store/apps/details?id=com.AlexBourgeois.FaceStreamer&gl=FR 
 
 
+In this project you will find a **Receiver Scene** that will allow you to receive the app data. Be aware that both devices have to be on the same network.
+
+
+Unity 2020.3.25f1
